@@ -1,0 +1,35 @@
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<link rel="Stylesheet" href="styles.css">
+
+<div id="app">
+    <div class="demo" @click="attachRed = !attachRed" :class="divClasses"></div>
+    <div class="demo" :style="myStyle"></div>
+    <div class="demo" :class="[color, {red: attachRed}]" :style="[myStyle, {height: width + 'px'}]"></div>
+    <hr>
+    <input type="text" v-model="color">
+    <input type="text" v-model="width">
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            attachRed: false,
+            color: 'green',
+            width: 100
+        },
+        computed: {
+            divClasses: function() {
+                return {
+                    red: this.attachRed,
+                    blue: !this.attachRed
+                };
+            },
+            myStyle: function() {
+                return {
+                    width: this.width + 'px'
+                }
+            }
+        }
+    });
+</script>

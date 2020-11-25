@@ -1,0 +1,51 @@
+<script src="vue.js"></script>
+
+<div id="app">
+    <button @click="counter++">Go up!</button>
+    <button @click="counter--">Go down!</button>
+    <button @click="secondCounter++">Increase Second Counter!</button>
+    <p>Counter: {{ counter }} | {{ secondCounter }}</p>
+    <p>Result: {{ result() }} | {{ output }}</p>
+    <p @mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }}
+        - <span @mousemove.stop="">DEAD SPOT</span>
+    </p>
+    <input type="text" @keyup.enter.space="alertMe">
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            secondCounter: 0,
+            x: 0,
+            y: 0
+        },
+        computed: {
+            output: function() {
+                console.log('Computed');
+                return this.secondCounter > 5 ? 'Greater than 5' : 'Smaller than 5'
+            }
+        },
+        watch: {
+            counter: function(value) {
+                var vm = this;
+                setTimeout(function() {
+                    vm.counter= 0;
+                }, 2000);
+            }
+        },
+        methods: {
+            result: function() {
+                return this.counter > 5 ? 'Greater than 5' : 'Smaller than 5'
+            },
+            updateCoordinates: function(event) {
+                this.x = event.clientX;
+                this.y = event.clientY;
+            },
+            alertMe: function() {
+                alert('Alert!');
+            }
+        }
+    });
+</script>
